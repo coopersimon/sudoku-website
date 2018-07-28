@@ -52,7 +52,7 @@ function main() {
                     var u = new User({
                         ip: user_ip,
                         current_id: 1,
-                        current_filled: NewSquareArray(9)
+                        current_filled: NewSquareArray(9, null)
                     });
                     u.save(function (err) {
                         if (err) return console.error(err);
@@ -95,14 +95,14 @@ function main() {
                     var u = new User({
                         ip: user_ip,
                         current_id: 1,
-                        current_filled: NewSquareArray(9)
+                        current_filled: NewSquareArray(9, null)
                     });
                     u.save(function (err) {
                         if (err) return console.error(err);
                     });
                 } else {
                     users[0].current_id += 1;
-                    users[0].current_filled = NewSquareArray(9);
+                    users[0].current_filled = NewSquareArray(9, null);
                     users[0].save(function (err) {
                         if (err) return console.error(err);
                     });
@@ -114,7 +114,6 @@ function main() {
 
     app.post('/filled', (req, res) => {
         // save data
-        //console.log(req.body);
         var filled = req.body;
         var user_ip = req.ip;
  
@@ -152,12 +151,12 @@ function main() {
 
 // Generic functions
 
-function NewSquareArray(size) {
+function NewSquareArray(size, t) {
     var array = new Array(size);
 
     for (var i = 0; i < size; i++) {
         array[i] = new Array(size);
-        array[i].fill(null);
+        array[i].fill(t);
     }
 
     return array;
